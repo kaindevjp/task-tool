@@ -29,3 +29,13 @@ def add_task(title):
     tasks.append(task)
     save_tasks(tasks)
     print(f"タスクを追加しました: [{new_id}] {title}")
+
+
+def list_tasks():
+    tasks = load_tasks()
+    if not tasks:
+        print("タスクはありません")
+        return
+    for task in tasks:
+        status = "完了" if task["done"] else "未完了"
+        print(f"[{task['id']}] {status} | {task['title']} | 作成: {task['created_at']}")
