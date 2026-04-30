@@ -39,3 +39,14 @@ def list_tasks():
     for task in tasks:
         status = "完了" if task["done"] else "未完了"
         print(f"[{task['id']}] {status} | {task['title']} | 作成: {task['created_at']}")
+
+
+def done_task(task_id):
+    tasks = load_tasks()
+    for task in tasks:
+        if task["id"] == task_id:
+            task["done"] = True
+            save_tasks(tasks)
+            print(f"タスクを完了にしました: [{task_id}] {task['title']}")
+            return
+    print(f"ID {task_id} のタスクが見つかりません")
