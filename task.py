@@ -50,3 +50,13 @@ def done_task(task_id):
             print(f"タスクを完了にしました: [{task_id}] {task['title']}")
             return
     print(f"ID {task_id} のタスクが見つかりません")
+
+
+def delete_task(task_id):
+    tasks = load_tasks()
+    new_tasks = [t for t in tasks if t["id"] != task_id]
+    if len(new_tasks) == len(tasks):
+        print(f"ID {task_id} のタスクが見つかりません")
+        return
+    save_tasks(new_tasks)
+    print(f"タスクを削除しました: ID {task_id}")
