@@ -60,3 +60,37 @@ def delete_task(task_id):
         return
     save_tasks(new_tasks)
     print(f"タスクを削除しました: ID {task_id}")
+
+
+def main():
+    import argparse
+    parser = argparse.ArgumentParser(description="タスク管理CLIツール")
+    subparsers = parser.add_subparsers(dest="command")
+
+    add_parser = subparsers.add_parser("add", help="タスクを追加する")
+    add_parser.add_argument("title", help="タスクのタイトル")
+
+    subparsers.add_parser("list", help="タスク一覧を表示する")
+
+    done_parser = subparsers.add_parser("done", help="タスクを完了にする")
+    done_parser.add_argument("id", type=int, help="完了にするタスクのID")
+
+    delete_parser = subparsers.add_parser("delete", help="タスクを削除する")
+    delete_parser.add_argument("id", type=int, help="削除するタスクのID")
+
+    args = parser.parse_args()
+
+    if args.command == "add":
+        add_task(args.title)
+    elif args.command == "list":
+        list_tasks()
+    elif args.command == "done":
+        done_task(args.id)
+    elif args.command == "delete":
+        delete_task(args.id)
+    else:
+        parser.print_help()
+
+
+if __name__ == "__main__":
+    main()
